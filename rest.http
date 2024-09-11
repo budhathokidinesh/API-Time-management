@@ -1,0 +1,28 @@
+# Time management API
+
+@baseUrl =  http://localhost:8000/api/v1/tasks
+
+### GET the task list
+GET {{baseUrl}}
+
+### POST the task list
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "id": 3,
+    "task": "sleeping",
+    "hr":20,
+    "type": "entry"
+}
+
+### PUT the task list
+PATCH {{baseUrl}}
+Content-Type: application/json
+
+{
+    "id": 1,
+    "type": "bad"
+}
+### DELETE the task list
+DELETE {{baseUrl}}/2
