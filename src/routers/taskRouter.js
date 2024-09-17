@@ -1,6 +1,11 @@
 import express from "express";
 const router = express.Router();
-import mongoose from "mongoose";
+import {
+  deleteTask,
+  getTask,
+  insertTask,
+  updateTask,
+} from "../routers/models/taskModel/TaskSchema.js";
 //creating controllers
 
 // router.all("/", (req, res, next) => {
@@ -13,46 +18,61 @@ import mongoose from "mongoose";
 // });
 
 //database table selecting
-const taskSchema = new mongoose.Schema({}, { statics: false });
-const TaskCollection = mongoose.model("Task", taskSchema);
-
 router.get("/", async (req, res, next) => {
   //do your code
-  console.log(req.body, "------");
-  //Insert task
-  const result = await TaskCollection();
+
+  //db.c.find()
+  const tasks = await getTask();
+  // console.log(result);
   res.json({
     status: "success",
     message: "Here are the task list",
-    tasks: [],
+    tasks,
   });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
   //do your code
-  res.json({
-    status: "success",
-    message: "New data has been added successfully",
-  });
+  try {
+    //Insert task
+    const result = await insertTask(req.body);
+    console.log(result);
+    res.json({
+      status: "success",
+      message: "New data has been added successfully",
+      tasks: [],
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
-router.patch("/", (req, res, next) => {
-  const { id, type } = req.body;
-
+router.patch("/", async (req, res, next) => {
+  const { _id, ...rest } = req.body;
+  console.log(req.body);
+  const result = await updateTask(_id, rest);
   //do your code
   res.json({
     status: "success",
     message: "your task has been updated",
+    result,
   });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:_id", async (req, res, next) => {
   //do your code
-  const { id } = req.params;
-  console.log(id);
+  const { _id } = req.params;
+
+  const result = await deleteTask(_id);
+  console.log(_id);
   res.json({
     status: "success",
     message: "Your task has been deleted",
+    result,
   });
 });
 

@@ -10,10 +10,9 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-    "id": 3,
-    "task": "sleeping",
-    "hr":20,
-    "type": "entry"
+    "task": "playing",
+    "hr":10,
+    "type": "something Different"
 }
 
 ### PUT the task list
@@ -21,8 +20,9 @@ PATCH {{baseUrl}}
 Content-Type: application/json
 
 {
-    "id": 1,
+    "_id": "66e5b7e3a0ba2e8eaf99ea17",
+    "hr": 60,
     "type": "bad"
 }
 ### DELETE the task list
-DELETE {{baseUrl}}/2
+DELETE {{baseUrl}}/66e5b7e3a0ba2e8eaf99ea17
