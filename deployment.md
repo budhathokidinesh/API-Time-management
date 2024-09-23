@@ -5,5 +5,3 @@
 3. Create production build of react and test it
 4. Server build version of react app via Node and test it
 5. Deploy Node project in cloud i. e. render
-
-74yEgORNhpVFf7xi
