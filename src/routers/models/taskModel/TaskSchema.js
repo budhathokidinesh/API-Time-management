@@ -15,6 +15,7 @@ const taskSchema = new mongoose.Schema(
     type: {
       type: String,
       default: "entry",
+      enum: ["entry", "bad"],
     },
   },
   {
@@ -22,6 +23,7 @@ const taskSchema = new mongoose.Schema(
   }
 );
 const TaskCollection = mongoose.model("Task", taskSchema); //tasks
+
 export const insertTask = (taskObj) => {
   return TaskCollection(taskObj).save();
 };
@@ -33,6 +35,9 @@ export const updateTask = (_id, rest) => {
     new: true,
   });
 };
-export const deleteTask = (_id) => {
-  return TaskCollection.findByIdAndDelete(_id);
+// export const deleteTask = (_id) => {
+//   return TaskCollection.findByIdAndDelete(_id);
+// };
+export const deleteTask = (ids) => {
+  return TaskCollection.deleteMany({ _id: { $in: ids } });
 };
